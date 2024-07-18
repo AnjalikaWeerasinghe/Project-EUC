@@ -30,14 +30,14 @@ public class UserController {
             return users;
         }
 
-        String customer = params.get("customer");
+        String employee = params.get("employee");
         String username = params.get("username");
         String roleid = params.get("roleid");
 
         Stream<User> ustream = users.stream();
 
-        if (customer != null) {
-            ustream = ustream.filter(u -> u.getCustomer().getName().contains(customer));
+        if (employee != null) {
+            ustream = ustream.filter(u -> u.getEmployee().getCallingname().contains(employee));
         }
         if (username != null) {
             ustream = ustream.filter(u -> u.getUsername().contains(username));
@@ -131,12 +131,12 @@ public class UserController {
         HashMap<String,String> response = new HashMap<>();
         String errors="";
 
-        User use1 = userdao.findByUsername(username);
+        User user1 = userdao.findByUsername(username);
 
-        if(use1==null)
+        if(user1==null)
             errors = errors+"<br> User Does Not Existed";
 
-        if(errors=="") userdao.delete(use1);
+        if(errors=="") userdao.delete(user1);
         else errors = "Server Validation Errors : <br> "+errors;
 
         response.put("username",String.valueOf(username));

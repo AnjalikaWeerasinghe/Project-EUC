@@ -27,12 +27,14 @@ public class MaterialController {
         if (params.isEmpty()) return materials;
 
         String materialname = params.get("materialname");
+        //String materialitemcode = params.get("materialitemcode");
         String materialstatusid = params.get("materialstatusid");
         String categoryid = params.get("categoryid");
 
         Stream<Material> istream = materials.stream();
 
         if (materialname!=null) istream = istream.filter(i->i.getName().contains(materialname));
+        //if (materialitemcode!=null) istream = istream.filter(i->i.getItemcode().contains(materialitemcode));
         if (materialstatusid!=null) istream = istream.filter(i->i.getMaterialstatus().getId() == Integer.parseInt(materialstatusid));
         if (categoryid!=null) istream = istream.filter(i->i.getSubcategory().getCategory().getId() == Integer.parseInt(categoryid));
 

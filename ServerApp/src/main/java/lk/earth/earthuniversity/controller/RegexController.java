@@ -1,6 +1,7 @@
 package lk.earth.earthuniversity.controller;
 
-import lk.earth.earthuniversity.entity.Customer;
+import lk.earth.earthuniversity.entity.Employee;
+import lk.earth.earthuniversity.entity.Material;
 import lk.earth.earthuniversity.entity.User;
 import lk.earth.earthuniversity.util.RegexProvider;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +17,7 @@ public class RegexController {
 
     @GetMapping(path ="/employee", produces = "application/json")
     public HashMap<String, HashMap<String, String>> employee() {
-        return RegexProvider.get(new Customer());
+        return RegexProvider.get(new Employee());
     }
 
     @GetMapping(path ="/users", produces = "application/json")
@@ -24,7 +25,8 @@ public class RegexController {
         return RegexProvider.get(new User());
     }
 
-
+    @GetMapping(path ="/material", produces = "application/json")
+    public HashMap<String, HashMap<String, String>> Material() { return RegexProvider.get(new Material()); }
 }
 
 

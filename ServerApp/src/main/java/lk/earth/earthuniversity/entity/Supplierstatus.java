@@ -6,18 +6,18 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Customertype {
+public class Supplierstatus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
     private Integer id;
     @Basic
-    @Column(name = "name")
-    private String name;
+    @Column(name = "status")
+    private String status;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customertype")
-    private Collection<Customer> customers;
+    @OneToMany(mappedBy = "supplierstatus")
+    private Collection<Supplier> suppliers;
 
     public Integer getId() {
         return id;
@@ -27,12 +27,12 @@ public class Customertype {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStatus() {
+        return status;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -40,10 +40,10 @@ public class Customertype {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Customertype that = (Customertype) o;
+        Supplierstatus that = (Supplierstatus) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
 
         return true;
     }
@@ -51,15 +51,15 @@ public class Customertype {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
-    public Collection<Customer> getCustomers() {
-        return customers;
+    public Collection<Supplier> getSuppliers() {
+        return suppliers;
     }
 
-    public void setCustomers(Collection<Customer> customers) {
-        this.customers = customers;
+    public void setSuppliers(Collection<Supplier> suppliers) {
+        this.suppliers = suppliers;
     }
 }

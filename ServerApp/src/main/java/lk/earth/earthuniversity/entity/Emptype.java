@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Country {
+public class Emptype {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -16,7 +16,7 @@ public class Country {
     private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "country")
+    @OneToMany(mappedBy = "emptype")
     private Collection<Employee> employees;
 
     public Integer getId() {
@@ -40,10 +40,10 @@ public class Country {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Country country = (Country) o;
+        Emptype emptype = (Emptype) o;
 
-        if (id != null ? !id.equals(country.id) : country.id != null) return false;
-        if (name != null ? !name.equals(country.name) : country.name != null) return false;
+        if (id != null ? !id.equals(emptype.id) : emptype.id != null) return false;
+        if (name != null ? !name.equals(emptype.name) : emptype.name != null) return false;
 
         return true;
     }

@@ -34,8 +34,8 @@ public class User {
     @Pattern(regexp = "^.*$", message = "Invalid Description")
     private String description;
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
-    private Customer customer;
+    @JoinColumn(name = "employee_id", referencedColumnName = "id", nullable = false)
+    private Employee employee;
     @ManyToOne
     @JoinColumn(name = "userstatus_id", referencedColumnName = "id", nullable = false)
     private Userstatus userstatus;
@@ -132,12 +132,12 @@ public class User {
         return result;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     public Userstatus getUserstatus() {

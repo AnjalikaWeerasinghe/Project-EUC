@@ -1,14 +1,11 @@
 package lk.earth.earthuniversity.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
 import java.sql.Date;
-import java.util.Collection;
+import java.util.Arrays;
 
 @Entity
-public class Customer {
+public class Supplier {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -18,50 +15,47 @@ public class Customer {
     private String name;
     @Basic
     @Column(name = "regid")
-    @Pattern(regexp = "^\\d{4}$", message = "Invalid Registration ID")
     private String regid;
     @Basic
     @Column(name = "contactperson")
     private String contactperson;
     @Basic
+    @Column(name = "photo")
+    private byte[] photo;
+    @Basic
     @Column(name = "contactmobile")
-    @Pattern(regexp = "^0\\d{9}$", message = "Invalid Mobile Number")
     private String contactmobile;
     @Basic
     @Column(name = "contactland")
-    @Pattern(regexp = "^\\d{0,10}$", message = "Invalid Landphone Number")
     private String contactland;
     @Basic
     @Column(name = "doregistered")
     private Date doregistered;
     @Basic
     @Column(name = "address")
-    @Pattern(regexp = "^([\\w\\/\\-,\\s]{2,})$", message = "Invalid Address")
     private String address;
     @Basic
     @Column(name = "email")
-    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Invalid Email Address")
     private String email;
     @Basic
     @Column(name = "description")
-    @Pattern(regexp = "^.*$", message = "Invalid Description")
     private String description;
     @ManyToOne
-    @JoinColumn(name = "customerstatus_id", referencedColumnName = "id", nullable = false)
-    private Customerstatus customerstatus;
+    @JoinColumn(name = "suppliertype_id", referencedColumnName = "id", nullable = false)
+    private Suppliertype suppliertype;
     @ManyToOne
-    @JoinColumn(name = "customertype_id", referencedColumnName = "id", nullable = false)
-    private Customertype customertype;
+    @JoinColumn(name = "supplierstatus_id", referencedColumnName = "id", nullable = false)
+    private Supplierstatus supplierstatus;
     @ManyToOne
     @JoinColumn(name = "country_id", referencedColumnName = "id", nullable = false)
-    private Country country;
-    @ManyToOne
-    @JoinColumn(name = "gender_id", referencedColumnName = "id", nullable = false)
-    private Gender gender;
+    private Supcountry supcountry;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "customer")
-    private Collection<User> users;
+    public Supplier(){}
+
+    public Supplier(Integer id, String contactperson){
+        this.id = id;
+        this.contactperson = contactperson;
+    }
 
     public Integer getId() {
         return id;
@@ -93,6 +87,14 @@ public class Customer {
 
     public void setContactperson(String contactperson) {
         this.contactperson = contactperson;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public String getContactmobile() {
@@ -148,22 +150,23 @@ public class Customer {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Customer customer = (Customer) o;
+        Supplier supplier = (Supplier) o;
 
-        if (id != null ? !id.equals(customer.id) : customer.id != null) return false;
-        if (name != null ? !name.equals(customer.name) : customer.name != null) return false;
-        if (regid != null ? !regid.equals(customer.regid) : customer.regid != null) return false;
-        if (contactperson != null ? !contactperson.equals(customer.contactperson) : customer.contactperson != null)
+        if (id != null ? !id.equals(supplier.id) : supplier.id != null) return false;
+        if (name != null ? !name.equals(supplier.name) : supplier.name != null) return false;
+        if (regid != null ? !regid.equals(supplier.regid) : supplier.regid != null) return false;
+        if (contactperson != null ? !contactperson.equals(supplier.contactperson) : supplier.contactperson != null)
             return false;
-        if (contactmobile != null ? !contactmobile.equals(customer.contactmobile) : customer.contactmobile != null)
+        if (!Arrays.equals(photo, supplier.photo)) return false;
+        if (contactmobile != null ? !contactmobile.equals(supplier.contactmobile) : supplier.contactmobile != null)
             return false;
-        if (contactland != null ? !contactland.equals(customer.contactland) : customer.contactland != null)
+        if (contactland != null ? !contactland.equals(supplier.contactland) : supplier.contactland != null)
             return false;
-        if (doregistered != null ? !doregistered.equals(customer.doregistered) : customer.doregistered != null)
+        if (doregistered != null ? !doregistered.equals(supplier.doregistered) : supplier.doregistered != null)
             return false;
-        if (address != null ? !address.equals(customer.address) : customer.address != null) return false;
-        if (email != null ? !email.equals(customer.email) : customer.email != null) return false;
-        if (description != null ? !description.equals(customer.description) : customer.description != null)
+        if (address != null ? !address.equals(supplier.address) : supplier.address != null) return false;
+        if (email != null ? !email.equals(supplier.email) : supplier.email != null) return false;
+        if (description != null ? !description.equals(supplier.description) : supplier.description != null)
             return false;
 
         return true;
@@ -175,6 +178,7 @@ public class Customer {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (regid != null ? regid.hashCode() : 0);
         result = 31 * result + (contactperson != null ? contactperson.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(photo);
         result = 31 * result + (contactmobile != null ? contactmobile.hashCode() : 0);
         result = 31 * result + (contactland != null ? contactland.hashCode() : 0);
         result = 31 * result + (doregistered != null ? doregistered.hashCode() : 0);
@@ -184,43 +188,27 @@ public class Customer {
         return result;
     }
 
-    public Customerstatus getCustomerstatus() {
-        return customerstatus;
+    public Suppliertype getSuppliertype() {
+        return suppliertype;
     }
 
-    public void setCustomerstatus(Customerstatus customerstatus) {
-        this.customerstatus = customerstatus;
+    public void setSuppliertype(Suppliertype suppliertype) {
+        this.suppliertype = suppliertype;
     }
 
-    public Customertype getCustomertype() {
-        return customertype;
+    public Supplierstatus getSupplierstatus() {
+        return supplierstatus;
     }
 
-    public void setCustomertype(Customertype customertype) {
-        this.customertype = customertype;
+    public void setSupplierstatus(Supplierstatus supplierstatus) {
+        this.supplierstatus = supplierstatus;
     }
 
-    public Country getCountry() {
-        return country;
+    public Supcountry getSupcountry() {
+        return supcountry;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
+    public void setSupcountry(Supcountry supcountry) {
+        this.supcountry = supcountry;
     }
 }

@@ -18,6 +18,7 @@ public class CategoryController {
 
     @Autowired
     private CategoryDao categorydao;
+
     @GetMapping(path = "/list",produces = "application/json")
     public List<Category> get(){
 

@@ -10,6 +10,7 @@ public class Userrole {
     @Id
     @Column(name = "id")
     private Integer id;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
