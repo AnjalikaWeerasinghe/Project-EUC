@@ -46,7 +46,12 @@ public class UserAuthorityController {
                     "material-select","material-delete","material-update","material-insert",
                     "product-select","product-delete","product-update","product-insert",
 
-                    "supplier-select","supplier-delete","supplier-update","supplier-insert"
+                    "supplier-select","supplier-delete","supplier-update","supplier-insert",
+                    "purchaseorder-select","purchaseorder-delete","purchaseorder-update","purchaseorder-insert",
+
+                    "customer-select","customer-delete","customer-update","customer-insert",
+                    "salesorder-select","salesorder-delete","salesorder-update","salesorder-insert"
+
             );
         }
 

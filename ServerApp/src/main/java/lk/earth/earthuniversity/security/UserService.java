@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
 
         User user = new User();
 
-        if ("UserAdmin".equals(username)){
+        if ("Admin".equals(username)){
 
             user.setUsername(username);
 
@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        if (username.equals("UserAdmin")) {
+        if (username.equals("Admin")) {
             Set<SimpleGrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority("gender-list-get"));
             authorities.add(new SimpleGrantedAuthority("designation-list-get"));
@@ -56,7 +56,7 @@ public class UserService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("employee-select"));
 
             return org.springframework.security.core.userdetails.User
-                    .withUsername("UserAdmin")
+                    .withUsername("Admin")
                     .password(new BCryptPasswordEncoder().encode("helloTeddy"))
                     .authorities(authorities)
                     .accountExpired(false)
