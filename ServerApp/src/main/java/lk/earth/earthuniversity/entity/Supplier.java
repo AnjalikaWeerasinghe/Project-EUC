@@ -1,6 +1,9 @@
 package lk.earth.earthuniversity.entity;
 
+import lk.earth.earthuniversity.util.RegexPattern;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.sql.Date;
 import java.util.Arrays;
 
@@ -15,30 +18,38 @@ public class Supplier {
     private String name;
     @Basic
     @Column(name = "regid")
+    @Pattern(regexp = "^\\d{4}$", message = "Invalid Registration Number")
     private String regid;
     @Basic
     @Column(name = "contactperson")
+    @Pattern(regexp = "^([A-Z][a-z]*[.]?[\\s]?)*([A-Z][a-z]*)$", message = "Invalid Contact Name")
     private String contactperson;
     @Basic
     @Column(name = "photo")
     private byte[] photo;
     @Basic
     @Column(name = "contactmobile")
+    @Pattern(regexp = "^0\\d{9}$", message = "Invalid Mobile Number")
     private String contactmobile;
     @Basic
     @Column(name = "contactland")
+    @Pattern(regexp = "^\\d{0,10}$", message = "Invalid Landphone Number")
     private String contactland;
     @Basic
     @Column(name = "doregistered")
+    @RegexPattern(reg = "^\\d{2}-\\d{2}-\\d{2}$", msg = "Invalid Date Format")
     private Date doregistered;
     @Basic
     @Column(name = "address")
+    @Pattern(regexp = "^([\\w\\/\\-,\\s]{2,})$", message = "Invalid Address")
     private String address;
     @Basic
     @Column(name = "email")
+    @Pattern(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "Invalid Email Address")
     private String email;
     @Basic
     @Column(name = "description")
+    @Pattern(regexp = "^.*$", message = "Invalid Description")
     private String description;
     @ManyToOne
     @JoinColumn(name = "suppliertype_id", referencedColumnName = "id", nullable = false)

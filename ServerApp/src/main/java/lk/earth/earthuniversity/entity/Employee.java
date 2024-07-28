@@ -17,7 +17,7 @@ public class Employee {
     private Integer id;
     @Basic
     @Column(name = "regid")
-    @Pattern(regexp = "^\\d{4}$", message = "Invalid Registration Number")
+    @Pattern(regexp = "^\\d{4}$", message = "Invalid Employee Registration Number")
     private String regid;
     @Basic
     @Column(name = "fullname")
@@ -36,7 +36,7 @@ public class Employee {
     private byte[] photo;
     @Basic
     @Column(name = "dobirth")
-    @RegexPattern(reg = "^\\d{2}-\\d{2}-\\d{2}$", msg = "Invalid Date Format")
+    @RegexPattern(reg = "^\\d{2}-\\d{2}-\\d{2}$", msg = "Invalid DOB Format")
     private Date dobirth;
     @Basic
     @Column(name = "contactmobile")
@@ -56,6 +56,7 @@ public class Employee {
     private String address;
     @Basic
     @Column(name = "doregistered")
+    @RegexPattern(reg = "^\\d{2}-\\d{2}-\\d{2}$", msg = "Invalid Registration Date Format")
     private Date doregistered;
     @Basic
     @Column(name = "description")
